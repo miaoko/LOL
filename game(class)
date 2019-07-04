@@ -1,0 +1,113 @@
+from random import randint as R
+sc=Screen()
+#sc.tracer(1000,1)
+class snake_turtle:
+    def __init__(self,turtleShape,turtleBody,turtlePos,head_color,body_color,turtle_goto,speed=1,bodypos=20,stop=False):
+        self.turtleBody=turtleBody
+        self.turtlePos=turtlePos
+        self.head_color=head_color
+        self.body_color=body_color
+        self.turtle_goto=turtle_goto
+        self.speed=speed
+        self.bodypos=bodypos
+        self.stop=stop
+        self.turtleShape=turtleShape
+        
+    def turtle_head(self):
+        tom = Turtle()
+        tom.shape(self.turtleShape)
+        tom.speed(0)
+        tom.color(self.head_color)
+        tom.penup()
+        tom.goto(self.turtle_goto)
+        self.turtleBody.append(tom)
+        if self.turtlePos!=None:
+            for c in range(20):
+                self.turtlePos.append(tom.pos())
+        
+    def addbody(self):
+        tom = Turtle()
+        tom.ht()
+        tom.shape('square')
+        tom.speed(0)
+        tom.color(self.body_color)
+        tom.penup()
+        tom.goto(self.turtlePos[len(self.turtlePos)-1])
+        self.turtleBody.append(tom)
+        for c in range(20):
+            self.turtlePos.append(tom.pos())
+        tom.st()
+
+    def delbody(self):
+        self.turtleBody[len(self.turtleBody)-1].ht()
+        self.turtleBody.pop(len(self.turtleBody)-1)
+        for c in range(20):
+            self.turtlePos.pop(len(self.turtlePos)-1)
+    
+    def movefd(self):
+        if self.stop!=True:
+            self.turtleBody[0].forward(self.speed)
+            for c in range(len(self.turtlePos)-1):
+                self.turtlePos[c]=self.turtlePos[c+1]
+            self.turtlePos[len(self.turtlePos)-1]=self.turtleBody[0].pos()
+            for i in range(1,len(self.turtleBody)):
+                self.turtleBody[i].goto(self.turtlePos[i*-self.bodypos])
+turtleBody1=[]
+turtlePos1=[]
+turtleBody2=[]
+turtlePos2=[]
+buffList=[]
+writeList=[]
+
+turtle1=snake_turtle("turtle",turtleBody1,turtlePos1,"red","green",(0,20))
+turtle1.turtle_head()
+for c in range(5):
+    turtle1.addbody()
+for c in range(3):
+    turtle1.delbody()
+for c in range(100):
+    turtle1.movefd()
+turtle2=snake_turtle("turtle",turtleBody2,turtlePos2,"orange","purple",(0,-20))
+turtle2.turtle_head()
+for c in range(5):
+    turtle2.addbody()
+for c in range(3):
+    turtle2.delbody()
+for c in range(100):
+    turtle2.movefd()
+
+class buff(snake_turtle):
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        
+    def changeIce(turtle):
+        turtle.goto(R(-300,300),R(-300,300))
+
+    def greenbuffON():
+        buffList[1].color("green")
+        buffList[1].st()
+        changeIce(buffList[1])   
+    def greenbuffOFF():
+        buffList[1].color("green")
+        buffList[1].ht()
+        buffList[1].goto(-360,290)
+
+    def redbuffON():
+        buffList[2].color("red")
+        buffList[2].st()
+        changeIce(buffList[2])
+    def redbuffOFF():
+        buffList[2].color("red")
+        buffList[2].ht()
+        buffList[2].goto(-360,310)
+    
+    def yellowbuffON():
+        buffList[0].color("yellow")
+        buffList[0].st()
+        changeIce(buffList[0])
+    def yellowbuffOFF():
+        buffList[0].color("yellow")
+        buffList[0].ht()
+        buffList[0].goto(-310,250)    
+
+buff("circle",buffList,None,"orange","purple",(0,0))
