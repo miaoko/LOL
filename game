@@ -1,0 +1,544 @@
+from random import randint as R
+sc=Screen()
+sc.tracer(1000,1)
+turtleBody1=[]
+turtlePos1=[]
+turtleBody2=[]
+turtlePos2=[]
+buffList=[]
+writeList=[]
+################################################### list box for turtle
+
+for c in range(4):
+    ice = Turtle()
+    ice.pu()
+    ice.goto(0,350)
+    ice.color('purple')
+    ice.speed(0)
+    ice.ht()
+    writeList.append(ice)
+################################################### append word turtle
+
+for c in range(3):
+    ice = Turtle()
+    ice.shape('circle')
+    ice.pu()
+    ice.goto(-350,-350)
+    ice.color('red')
+    ice.speed(0)
+    ice.ht()
+    buffList.append(ice)
+buffList[0].pd()
+buffList[0].goto(350,-350)
+buffList[0].goto(350,350)
+buffList[0].goto(-350,350)
+buffList[0].goto(-350,-350)
+buffList[0].pu()
+################################################### append buff turtle
+
+def show1(turtle,word):
+    turtle.color("purple")
+    turtle.goto(-350,350)
+    turtle.clear()
+    turtle.write(word,0,align="left",font=("Arial", 25, "normal"))
+def show2(turtle,word):
+    turtle.color("purple")
+    turtle.goto(350,350)
+    turtle.clear()
+    turtle.write(word,0,align="right",font=("Arial", 25, "normal"))
+def showgame(turtle,word):
+    turtle.color("purple")
+    turtle.goto(0,380)
+    turtle.clear()
+    turtle.write(word,0,align="center",font=("Arial", 25, "normal"))
+def showname(turtle,word):
+    turtle.color("purple")
+    turtle.goto(0,410)
+    turtle.seth(270)
+    turtle.clear()
+    turtle.write(word,0,align="center",font=("Arial", 50, "normal"))
+def showname_move(turtle,word):
+    sc.tracer(100,1)
+    turtle.color("green")
+    turtle.clear()
+    for c in range(4100):
+        turtle.forward(0.1)
+        for c in range(3):
+            turtle.write(word,0,align="center",font=("Arial", 30, "normal"))
+        turtle.clear()
+    turtle.write(word,0,align="center",font=("Arial", 30, "normal"))
+################################################### control word turtle
+
+show1(writeList[0],"tomscore:0")
+show2(writeList[1],"jonscore:0")
+showgame(writeList[2],"tom is green turtle, jon is blue turtle")
+showname(writeList[3],"SNAKE GAME")
+################################################### call word turtle
+
+def changeIce(turtle):
+    turtle.goto(R(-300,300),R(-300,300))
+
+def greenbuffON(turtle):
+    turtle.color("green")
+    turtle.st()
+    changeIce(turtle)   
+def greenbuffOFF(turtle):
+    turtle.color("green")
+    turtle.ht()
+    turtle.goto(-360,290)
+
+def redbuffON(turtle):
+    turtle.color("red")
+    turtle.st()
+    changeIce(turtle)
+def redbuffOFF(turtle):
+    turtle.color("red")
+    turtle.ht()
+    turtle.goto(-360,310)
+    
+def yellowbuffON(turtle):
+    turtle.color("yellow")
+    turtle.st()
+    changeIce(turtle)
+def yellowbuffOFF(turtle):
+    turtle.color("yellow")
+    turtle.ht()
+    turtle.goto(-310,250)
+################################################### control buff turtle in out
+
+yellowbuffON(buffList[0])
+################################################### call buff turtle
+
+tom = Turtle()
+tom.shape('turtle')
+tom.speed(0)
+tom.color("blue","green")
+tom.penup()
+tom.goto(0,20)
+turtleBody1.append(tom)
+for c in range(20):
+    turtlePos1.append(tom.pos())
+################################################### append first turtle head and head position
+
+def addbody1():
+    tom = Turtle()
+    tom.ht()
+    tom.shape('square')
+    tom.speed(0)
+    tom.color("green")
+    tom.penup()
+    tom.goto(turtlePos1[len(turtlePos1)-1])
+    turtleBody1.append(tom)
+    for c in range(20):
+        turtlePos1.append(tom.pos())
+    tom.st()
+################################################### append first turtle body and body position
+
+def delbody1():
+    turtleBody1[len(turtleBody1)-1].ht()
+    turtleBody1.pop(len(turtleBody1)-1)
+    for c in range(20):
+        turtlePos1.pop(len(turtlePos1)-1)
+################################################### delete first turtle body and body position
+
+def movefd(speed=1,bodypos=20,stop=False):
+    if stop!=True:
+        turtleBody1[0].forward(speed)
+        for c in range(len(turtlePos1)-1):
+            turtlePos1[c]=turtlePos1[c+1]
+        turtlePos1[len(turtlePos1)-1]=turtleBody1[0].pos()
+        for i in range(1,len(turtleBody1)):
+            turtleBody1[i].goto(turtlePos1[i*-bodypos])
+################################################### control first turtle forward and speed
+
+tom = Turtle()
+tom.shape('turtle')
+tom.speed(0)
+tom.color("green","blue")
+tom.penup()
+tom.goto(0,-20)
+turtleBody2.append(tom)
+for c in range(20):
+    turtlePos2.append(tom.pos())
+################################################### append second turtle head and head position
+
+def addbody2():
+    tom = Turtle()
+    tom.ht()
+    tom.shape('square')
+    tom.speed(0)
+    tom.color("skyblue")
+    tom.penup()
+    tom.goto(turtlePos2[len(turtlePos2)-1])
+    turtleBody2.append(tom)
+    for c in range(20):
+        turtlePos2.append(tom.pos())
+    tom.st()
+################################################### append second turtle body and body position
+
+def delbody2():
+    turtleBody2[len(turtleBody2)-1].ht()
+    turtleBody2.pop(len(turtleBody2)-1)
+    for c in range(20):
+        turtlePos2.pop(len(turtlePos2)-1)
+################################################### delete second turtle body and body position
+
+def movefd2(speed=1,bodypos=20,stop=False):
+    if stop!=True:
+        turtleBody2[0].forward(speed)
+        for c in range(len(turtlePos2)-1):
+            turtlePos2[c]=turtlePos2[c+1]
+        turtlePos2[len(turtlePos2)-1]=turtleBody2[0].pos()
+        for i in range(1,len(turtleBody2)):
+            turtleBody2[i].goto(turtlePos2[i*-bodypos])
+################################################### control second turtle forward and speed
+
+def dist(a,b):
+    x1,y1=a
+    x2,y2=b
+    return ((x1-x2)**2+(y1-y2)**2)**0.5
+################################################### calculate distance between buff and turtle
+
+def movelt():
+    turtleBody1[0].left(45)
+
+def movert():
+    turtleBody1[0].right(45)
+################################################### control first turtle left and right
+
+def movelt2():
+    turtleBody2[0].left(45)
+
+def movert2():
+    turtleBody2[0].right(45)
+################################################### control second turtle left and right
+
+def main_game():
+    sc.tracer(1000,1)
+    
+    tomscore = 0
+    jonscore = 0
+    g=0
+    r=0
+    gBuff=False
+    rBuff=False
+    ################################################### reset score and buff time countdown
+    speed1=1
+    bodypos1=20
+    stop1=False
+    speed2=1
+    bodypos2=20
+    stop2=False
+    ################################################### reset body position and turtle speed
+    show1(writeList[0],"tomscore:0")
+    show2(writeList[1],"jonscore:0")
+    showgame(writeList[2],"start")
+    showname(writeList[3],"SNAKE GAME")
+    ################################################### reset word
+    yellowbuffON(buffList[0])
+    greenbuffOFF(buffList[1])
+    redbuffOFF(buffList[2])
+    ################################################### reset buff
+    for c in range(1,len(turtleBody2)):
+        turtleBody2[c].ht()
+    for c in range(1,len(turtleBody1)):
+        turtleBody1[c].ht()
+    del turtleBody1[1:],turtleBody2[1:],turtlePos1[20:],turtlePos2[20:]
+    for c in range(20):
+        turtlePos1[c]=0,20
+    for c in range(20):
+        turtlePos2[c]=0,20
+    turtleBody1[0].goto(0,20)
+    turtleBody1[0].seth(0)
+    turtleBody2[0].goto(0,-20)
+    turtleBody2[0].seth(0)
+    ############################################################ reset turtle speed, position, buff and word
+    while tomscore<10 and jonscore<10:
+        movefd(speed1,bodypos1,stop1)
+        movefd2(speed2,bodypos2,stop2)
+        ######################################################## function for turtle forward, speed and body position
+        t=turtleBody1[0].pos()
+        point=buffList[0].pos()
+        j=turtleBody2[0].pos()
+        greenbuff=buffList[1].pos()
+        redbuff=buffList[2].pos()
+        ####################################################### give abbreviation for turtle and buff position
+        tbp=[(dist(t,turtleBody2[c].pos()))for c in range(1,len(turtleBody2)-1)]
+        jbp=[(dist(j,turtleBody1[c].pos()))for c in range(1,len(turtleBody1)-1)]
+        ####################################################### range from distance of turtle body and head 
+        GTF=R(-2000,2000)
+        RTF=R(-2000,2000)
+        ####################################################### random let buff in
+        if dist(t,turtleBody2[0].pos())<20 and dist(j,turtleBody1[0].pos())<20:
+            ######################################## if distance smaller than 20 put in list and cheak if not empty list 
+            if tomscore>0 and jonscore>0:
+                showgame(writeList[2],"TOM AND JON HIT THE HEAD!!!")
+                tomscore=tomscore-1
+                jonscore=jonscore-1
+                for c in range(len(turtleBody1)-1):
+                    turtleBody1[c].goto(0,20)
+                for c in range(len(turtlePos1)-1):
+                    turtlePos1[c]=(0,20)
+                for c in range(len(turtleBody2)-1):
+                    turtleBody2[c].goto(0,-20)
+                for c in range(len(turtlePos2)-1):
+                    turtlePos2[c]=(0,-20)
+                turtleBody1[0].seth(0)
+                turtleBody2[0].seth(0)
+                ################################################### minus points and reset turtle head and body position
+            elif tomscore==0 and jonscore==0:
+                showgame(writeList[2],"TOM AND JON HIT THE HEAD!!!")
+                showname_move(writeList[3],"GAME OVER TOM AND JON DIE TOGETHER!!!")
+                break
+                ################################################### end game
+            elif jonscore>0 and tomscore==0:
+                showgame(writeList[2],"TOM AND JON HIT THE HEAD!!!")
+                showname_move(writeList[3],"GAME OVER JON WIN!!!")
+                break
+                ################################################### end game
+            elif tomscore>0 and jonscore==0:
+                showgame(writeList[2],"TOM AND JON HIT THE HEAD!!!")
+                showname_move(writeList[3],"GAME OVER TOM WIN!!!")
+                break
+                ################################################### end game
+        ######################################################## calculate if turtle head hit together 
+        elif [i for i in tbp if i<20]!=[] and [i for i in jbp if i<20]!=[]:
+            ######################################## if distance smaller than 20 put in list and cheak if not empty list 
+            if tomscore>0 and jonscore>0:
+                showgame(writeList[2],"TOM AND JON HIT THE BODY!!!")
+                tomscore=tomscore-1
+                jonscore=jonscore-1
+                for c in range(len(turtleBody1)-1):
+                    turtleBody1[c].goto(0,20)
+                for c in range(len(turtlePos1)-1):
+                    turtlePos1[c]=(0,20)
+                for c in range(len(turtleBody2)-1):
+                    turtleBody2[c].goto(0,-20)
+                for c in range(len(turtlePos2)-1):
+                    turtlePos2[c]=(0,-20)
+                turtleBody1[0].seth(0)
+                turtleBody2[0].seth(0)
+                ################################################### minus points and reset turtle head and body position
+            elif tomscore==0 and jonscore==0:
+                showgame(writeList[2],"TOM AND JON HIT THE BODY!!!")
+                showname_move(writeList[3],"GAME OVER TOM AND JON DIE TOGETHER!!!")
+                break
+                ################################################### end game
+            elif jonscore>0 and tomscore==0:
+                showgame(writeList[2],"TOM AND JON HIT THE BODY!!!")
+                showname_move(writeList[3],"GAME OVER JON WIN!!!")
+                break
+                ################################################### end game
+            elif tomscore>0 and jonscore==0:
+                showgame(writeList[2],"TOM AND JON HIT THE BODY!!!")
+                showname_move(writeList[3],"GAME OVER TOM WIN!!!")
+                break
+                ################################################### end game
+        ######################################################## calculate if turtle head hit enemy body together 
+        elif [i for i in tbp if i<20]!=[]:
+            ######################################## if distance smaller than 20 put in list and cheak if not empty list 
+            if tomscore>0:
+                showgame(writeList[2],"TOM HIT JON BODY!!!")
+                tomscore=tomscore-1
+                for c in range(len(turtleBody1)-1):
+                    turtleBody1[c].goto(0,20)
+                for c in range(len(turtlePos1)-1):
+                    turtlePos1[c]=(0,20)
+                turtleBody1[0].seth(0)
+                ################################################### minus points and reset turtle head and body position
+            elif tomscore==0:
+                showname_move(writeList[3],"GAME OVER JON WIN!!!")
+                break
+                ################################################### end game
+        ######################################################## calculate if first turtle head hit enemy body  
+        elif [i for i in jbp if i<20]!=[]:
+            ######################################## if distance smaller than 20 put in list and cheak if not empty list 
+            if jonscore>0:
+                showgame(writeList[2],"JON HIT THE BODY!!!")
+                jonscore=jonscore-1
+                for c in range(len(turtleBody2)-1):
+                    turtleBody2[c].goto(0,-20)
+                for c in range(len(turtlePos2)-1):
+                    turtlePos2[c]=(0,-20)
+                turtleBody2[0].seth(0)
+                ################################################### minus points and reset turtle head and body position
+            elif jonscore==0:
+                showname_move(writeList[3],"GAME OVER JON WIN!!!")
+                break
+                ################################################### end game
+        ######################################################## calculate if second turtle head hit enemy body  
+        if (-350>t[0] or t[0]>350 or -350>t[1] or t[1]>350) and (-350>j[0] or j[0]>350 or -350>j[1] or j[1]>350):
+            ######################################## if turtle position out of range
+            if tomscore>0 and jonscore>0:
+                showgame(writeList[2],"TOM AND JON HIT THE WALL!!!")
+                tomscore=tomscore-1
+                jonscore=jonscore-1
+                for c in range(len(turtleBody1)-1):
+                    turtleBody1[c].goto(0,20)
+                for c in range(len(turtlePos1)-1):
+                    turtlePos1[c]=(0,20)
+                for c in range(len(turtleBody2)-1):
+                    turtleBody2[c].goto(0,-20)
+                for c in range(len(turtlePos2)-1):
+                    turtlePos2[c]=(0,-20)
+                turtleBody1[0].seth(0)
+                turtleBody2[0].seth(0)
+                ################################################### minus points and reset turtle head and body position
+            elif tomscore==0 and jonscore==0:
+                showgame(writeList[2],"TOM AND JON HIT THE WALL!!!")
+                showname_move(writeList[3],"GAME OVER TOM AND JON DIE TOGETHER!!!")
+                break
+                ################################################### end game
+            elif jonscore>0 and tomscore==0:
+                showgame(writeList[2],"TOM AND JON HIT THE WALL!!!")
+                showname_move(writeList[3],"GAME OVER JON WIN!!!")
+                break
+                ################################################### end game
+            elif tomscore>0 and jonscore==0:
+                showgame(writeList[2],"TOM AND JON HIT THE WALL!!!")
+                showname_move(writeList[3],"GAME OVER TOM WIN!!!")
+                break
+                ################################################### end game
+        ######################################################## calculate if turtle head hit wall together
+        elif -350>t[0] or t[0]>350 or -350>t[1] or t[1]>350:
+            ######################################## if first turtle position out of range
+            if tomscore>0:
+                showgame(writeList[2],"TOM HIT THE WALL!!!")
+                tomscore=tomscore-1
+                for c in range(len(turtleBody1)-1):
+                    turtleBody1[c].goto(0,20)
+                for c in range(len(turtlePos1)-1):
+                    turtlePos1[c]=(0,20)
+                turtleBody1[0].seth(0)
+                ################################################### minus points and reset turtle head and body position
+            elif tomscore==0:
+                showname_move(writeList[3],"GAME OVER JON WIN!!!")
+                break
+                ################################################### end game
+        ######################################################## calculate if first turtle head hit wall together
+        elif -350>j[0] or j[0]>350 or -350>j[1] or j[1]>350:
+            ######################################## if second turtle position out of range
+            if jonscore>0:
+                showgame(writeList[2],"JON HIT THE WALL!!!")
+                jonscore=jonscore-1
+                for c in range(len(turtleBody2)-1):
+                    turtleBody2[c].goto(0,-20)
+                for c in range(len(turtlePos2)-1):
+                    turtlePos2[c]=(0,-20)
+                turtleBody2[0].seth(0)
+                ################################################### minus points and reset turtle head and body position
+            elif jonscore==0:
+                showname_move(writeList[3],"GAME OVER TOM WIN!!!")
+                break
+                ################################################### end game
+        ######################################################## calculate if second turtle head hit wall together
+        else:
+            ############################## if turtle position in range and didn't hit enemy turtle
+            if (dist(t,point)<10) and (dist(j,point)<10):
+                ######################################## if two turtle eat point together
+                tomscore=tomscore+1
+                jonscore=jonscore+1
+                changeIce(buffList[0])
+            elif dist(t,point)<10:
+                ######################################## if first turtle eat point 
+                tomscore=tomscore+1
+                changeIce(buffList[0])
+            elif dist(j,point)<10:
+                ######################################## if second turtle eat point 
+                jonscore=jonscore+1
+                changeIce(buffList[0])
+            elif dist(t,greenbuff)<10:
+                ######################################## if first turtle eat speed buff 
+                speed1=2
+                bodypos1=10
+                greenbuffOFF(buffList[1])
+                gBuff=True
+            elif dist(j,greenbuff)<10:
+                ######################################## if second turtle eat speed buff 
+                speed2=2
+                bodypos2=10
+                greenbuffOFF(buffList[1])
+                gBuff=True
+            elif dist(t,redbuff)<10:
+                ######################################## if first turtle eat stop buff 
+                stop2=True
+                rBuff=True
+                redbuffOFF(buffList[2])
+            elif dist(j,redbuff)<10:
+                ######################################## if second turtle eat stop buff 
+                stop1=True
+                rBuff=True
+                redbuffOFF(buffList[2])
+        ##################################### score calculate
+        
+        if gBuff:
+            if g == 1000:
+                speed1=1
+                bodypos1=20
+                speed2=1
+                bodypos2=20 
+                gBuff=False
+                g=0
+            else:
+                g+=1
+        ##################################### if eat speed buff start countdown
+        else:
+            if GTF==-100 and (greenbuff[0] not in range(-350,350)) or (greenbuff[1] not in range(-350,350)):
+                ###################################### if achieve conditions call speed buff
+                greenbuffON(buffList[1])
+        ##################################### if didn't eat wait
+        if rBuff:
+            if r == 500:
+                stop1=False
+                stop2=False
+                rBuff=False
+                r=0
+            else:
+                r+=1
+        ##################################### if eat stop buff start countdown
+        else:
+            if RTF==100 and (redbuff[0] not in range(-350,350)) or (redbuff[1] not in range(-350,350)):
+                ###################################### if achieve conditions call stop buff
+                redbuffON(buffList[2])
+            ##################################### if didn't eat wait
+            
+        while len(turtleBody1)-1<tomscore or len(turtleBody2)-1<jonscore or len(turtleBody1)-1>tomscore or len(turtleBody2)-1>jonscore:
+            if len(turtleBody1)-1<tomscore and len(turtleBody2)-1<jonscore:
+                addbody1()
+                addbody2()
+            elif len(turtleBody1)-1<tomscore:
+                addbody1()
+            elif len(turtleBody1)-1>tomscore:
+                delbody1()
+            elif len(turtleBody2)-1<jonscore:
+                addbody2()
+            elif len(turtleBody2)-1>jonscore:
+                delbody2()
+            else:
+                pass
+        ################################################ delete and add turtle body
+        show1(writeList[0],("tomscore:%s" % tomscore))
+        show2(writeList[1],("jonscore:%s" % jonscore))
+        ################################################ turtle score word
+        sc.update()
+    if tomscore==10 and jonscore==10:
+        showgame(writeList[2],"TOM AND JON GET 10 SCORE TOGETHER!!! DRAW!!!")
+        showname_move(writeList[3],"GAME OVER WIN TOGETHER!!!")
+    elif tomscore==10:
+        showgame(writeList[2],"TOM GET 10 SCORE TOM WIN THE GAME!!!")
+        showname_move(writeList[3],"GAME OVER TOM WIN!!!")
+    elif jonscore==10:
+        showgame(writeList[2],"JON GET 10 SCORE JON WIN THE GAME!!!")
+        showname_move(writeList[3],"GAME OVER TOM WIN!!!")
+###################################################### main game
+
+sc.listen()
+sc.onkey("A",movelt)
+sc.onkey("D",movert)
+sc.onkey("Left",movelt2)
+sc.onkey("Right",movert2)
+sc.onkey("Space",main_game)
+sc.update()
+###################################################### set button to control turtle
+
+
