@@ -1,0 +1,142 @@
+from math import *
+tom = Turtle()
+tom.color('red')
+tom.ht()
+tom.speed(0)
+#tom.tracer(1000)
+sc=Screen()
+sc.tracer(0,0)
+sc.listen()
+R=255
+G=0
+B=0
+
+vp=[0,0,-1500]
+vpz=vp[2]
+
+def xyp(xyzp):
+    nz=xyzp[2]/vpz
+    nx=xyzp[0]/nz
+    ny=xyzp[1]/nz
+    return nx,ny
+def rp(polygon,origin,theta):
+    thetaX = radians(theta[0])
+    angleCosX = cos(thetaX)
+    angleSinX = sin(thetaX)
+    #zx=[((corner[0]-origin[0])*angleSinX+(corner[2]-origin[2])*angleCosX+origin[2])for corner in polygon]
+    thetaY = radians(theta[1])
+    angleCosY = cos(thetaY)
+    angleSinY = sin(thetaY)
+    return [((corner[0]-origin[0])*angleCosX-(corner[2]-origin[2])*angleSinX+origin[0],
+             (corner[1]-origin[1])*angleCosY-(((corner[0]-origin[0])*angleSinX+(corner[2]-origin[2])*angleCosX+origin[2])-origin[2])*angleSinY+origin[1],
+             ((corner[1]-origin[1])*angleSinY+(((corner[0]-origin[0])*angleSinX+(corner[2]-origin[2])*angleCosX+origin[2])-origin[2])*angleCosY+origin[2])) 
+            for corner in polygon]
+
+def left(left=1):
+    tom.clear()
+    for b in range(len(lines)):
+        b=lines[b]
+        x=0
+        y=1
+        z=2
+        [b[0][x],b[0][y],b[0][z]],[b[1][x],b[1][y],b[1][z]]=rp(([b[0][x],b[0][y],b[0][z]],[b[1][x],b[1][y],b[1][z]]),(0,0,900),(left,0))
+
+    for a in lines:
+        tom.penup()
+        tom.goto(xyp(a[0]))
+        tom.pendown()
+        tom.goto(xyp(a[1]))
+
+def right(right=1):
+    tom.clear()
+    for b in range(len(lines)):
+        b=lines[b]
+        x=0
+        y=1
+        z=2
+        [b[0][x],b[0][y],b[0][z]],[b[1][x],b[1][y],b[1][z]]=rp(([b[0][x],b[0][y],b[0][z]],[b[1][x],b[1][y],b[1][z]]),(0,0,900),((right*-1),0))
+
+    for a in lines:
+        tom.penup()
+        tom.goto(xyp(a[0]))
+        tom.pendown()
+        tom.goto(xyp(a[1]))
+
+def up(up=1):
+    tom.clear()
+    for b in range(len(lines)):
+        b=lines[b]
+        x=0
+        y=1
+        z=2
+        [b[0][x],b[0][y],b[0][z]],[b[1][x],b[1][y],b[1][z]]=rp(([b[0][x],b[0][y],b[0][z]],[b[1][x],b[1][y],b[1][z]]),(0,0,900),(0,(up*-1)))
+
+    for a in lines:
+        tom.penup()
+        tom.goto(xyp(a[0]))
+        tom.pendown()
+        tom.goto(xyp(a[1]))
+        
+def down(down=1):
+    tom.clear()
+    for b in range(len(lines)):
+        b=lines[b]
+        x=0
+        y=1
+        z=2
+        [b[0][x],b[0][y],b[0][z]],[b[1][x],b[1][y],b[1][z]]=rp(([b[0][x],b[0][y],b[0][z]],[b[1][x],b[1][y],b[1][z]]),(0,0,900),(0,down))
+
+    for a in lines:
+        tom.penup()
+        tom.goto(xyp(a[0]))
+        tom.pendown()
+        tom.goto(xyp(a[1]))        
+        
+lines = [
+([-100, -100, 800], [100, -100, 800]),
+([-100, -100, 800], [-100, 100, 800]),
+([-100, -100, 800], [-100, -100, 1000]),
+([-100, -100, 1000], [100, -100, 1000]),
+([-100, -100, 1000], [-100, 100, 1000]),
+([-100, 100, 800], [100, 100, 800]),
+([-100, 100, 800], [-100, 100, 1000]),
+([-100, 100, 1000], [100, 100, 1000]),
+([100, -100, 800], [100, 100, 800]),
+([100, -100, 800], [100, -100, 1000]),
+([100, -100, 1000], [100, 100, 1000]),
+([100, 100, 800], [100, 100, 1000])]
+
+
+while True:
+    if R<255 and G==0 and B==0:
+        R=R+1
+        pass
+    elif R==255 and G<255 and B==0:
+        G=G+1
+        pass
+    elif R>0 and G==255 and B==0:
+        R=R-1
+        pass
+    elif R==0 and G==255 and B<255:
+        B=B+1
+        pass
+    elif R==0 and G>0 and B==255:
+        G=G-1
+        pass
+    elif R<255 and G==0 and B==255:
+        R=R+1
+        pass
+    else:
+        B=B-1
+        pass
+    tom.color(R,G,B)
+    sc.onkey(right,"D")
+    sc.onkey(left,"A")
+    sc.onkey(up,"W")
+    sc.onkey(down,"S")
+    tom.update()   
+
+
+
+
+
